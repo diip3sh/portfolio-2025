@@ -8,6 +8,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 import type { PortfolioProject } from "@/constants/types"
 import { MediaPlaceholder } from "@/components/portfolio/media-placeholder"
+import { hoverPlayHandlers } from "@/lib/hover-play"
 
 type ProjectCardProps = {
   project: PortfolioProject
@@ -65,6 +66,7 @@ const ProjectVideoMedia = ({
         poster={media.poster}
         aria-label={media.alt}
         onLoadedData={() => setIsReady(true)}
+        {...hoverPlayHandlers}
         style={
           media.width && media.height
             ? { aspectRatio: media.width / media.height }

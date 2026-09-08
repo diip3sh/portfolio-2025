@@ -22,6 +22,7 @@ export const ProjectLeftColumn = ({ project }: ProjectLeftColumnProps) => {
       <ProjectIntro
         title={project.title}
         description={project.description}
+        link={project.link}
       />
       <ProjectMetadata stack={project.stack} />
       <ProjectChallengesSolutions

@@ -1,4 +1,9 @@
-export type ProjectMedia =
+export type ProjectMedia = {
+  // Media sharing a row value render side by side in the project gallery;
+  // within a row, media sharing a cell value stack in the same column.
+  row?: number
+  cell?: number
+} & (
   | { type: "placeholder"; alt: string }
   | {
       type: "image"
@@ -15,6 +20,7 @@ export type ProjectMedia =
       width?: number
       height?: number
     }
+)
 
 export type ShowcaseComponentKey = "edit-time" | "card-hover"
 
@@ -35,6 +41,7 @@ export type PortfolioProject = {
   title: string
   col: 1 | 2
   order: number
+  link?: string
   media: ProjectMedia[]
   stack: string[]
   description: string

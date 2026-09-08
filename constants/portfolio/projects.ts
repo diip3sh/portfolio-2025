@@ -4,6 +4,121 @@ import type {
 } from "@/constants/types"
 
 export const portfolioProjects: PortfolioProject[] = [
+  //thrine
+  {
+    type: "project",
+    slug: "thrine",
+    title: "Thrine",
+    link: "https://www.thrine.app",
+    col: 1,
+    order: 2,
+    media: [
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/thrine.png",
+        alt: "Thrine 3D model editor",
+      },
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/thrine-2.png",
+        alt: "Thrine lighting and material presets",
+        row: 1,
+        cell: 1,
+      },
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/thrine-3.png",
+        alt: "Thrine camera framing controls",
+        row: 1,
+        cell: 1,
+      },
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/thrine-4.png",
+        alt: "Thrine motion presets",
+        row: 1,
+      },
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/thrine-5.png",
+        alt: "Thrine embed snippet export",
+        row: 1,
+      },
+    ],
+    stack: [
+      "React 19",
+      "TypeScript",
+      "Vite (Rolldown)",
+      "three.js",
+      "@react-three/fiber",
+      "Zustand",
+      "Tailwind CSS",
+      "Cloudflare R2",
+    ],
+    description:
+      "Thrine (thrine.app) turns a 3D model into an embeddable, animated web component: load a `.glb`, pick a look, frame the shot, copy the snippet. The editor runs on three.js through @react-three/fiber, decoding Draco, Meshopt, and KTX2 payloads, and exposes environment lighting, tone mapping, shadows, bloom via an EffectComposer pass, and turntable, orbit, or scroll-driven motion as presets rather than raw renderer settings. Export writes a self-contained snippet\u2014the whole configuration travels inside it and resolves the model from R2, so an embed keeps rendering even if the editor is offline. Models, presets, and the working session persist client-side; only the public model address is account-gated.",
+    challenges: [
+      "Getting first paint fast when the editor opens on a 1.4MB `.glb` behind ~440KB of JavaScript that has to download, parse, and mount before the model is even requested.",
+      "Exposing renderer controls\u2014exposure, tone mapping, environment, bloom\u2014as choices a non-3D user can make, without collapsing into a `three.js` settings panel.",
+      "Producing an `embed` that stays correct once it leaves the site, with no runtime dependency on the editor or its API.",
+      "Loading arbitrary user models whose `Draco`, `Meshopt`, or `KTX2` payloads may be missing, partially referenced, or too heavy for a phone.",
+    ],
+    solutions: [
+      "Issued the boot model `fetch` from an inline script in the document head, so the transfer overlaps bundle parse instead of following it, with a plain fetch fallback if the URL drifts.",
+      "Reduced the renderer surface to named `presets` for lighting, material, and motion, keeping the raw values behind them.",
+      "Serialized the full configuration into the exported `snippet` and pointed it at a stable R2 address, so the embed carries its own state and re-export is the only way it changes.",
+      "Wired `Draco`, `Meshopt`, and `KTX2` decoders into the GLTF loader, and reported dropped or unembedded references back to the user instead of failing silently.",
+    ],
+  },
+  //canvas
+  {
+    type: "project",
+    slug: "canvas",
+    title: "Canvas",
+    link: "https://canvas.originkit.dev",
+    col: 2,
+    order: 0,
+    media: [
+      {
+        type: "video",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/canvas-1.mp4",
+        alt: "Canvas node graph editor walkthrough",
+      },
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/canvas-3.png?v=2",
+        alt: "Canvas generated code output",
+      },
+      {
+        type: "image",
+        src: "https://pub-17f1ae3c481641228230d1b2dcdc07ff.r2.dev/projects/canvas-4.png?v=2",
+        alt: "Canvas codegen target selection",
+      },
+    ],
+    stack: [
+      "Next.js (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "@xyflow/react",
+      "Zustand",
+      "Figma REST API",
+    ],
+    description:
+      "Canvas (canvas.originkit.dev) is a free Figma-to-code converter that turns a Figma file into production-ready markup. It reads a design through the Figma REST API using a personal access token, a file key, and an optional node id, then maps the document tree\u2014auto layout, constraints, typography, fills, effects\u2014onto an editable node graph rendered with @xyflow/react. Every node is keyboard operable (select, move, delete, escape) and the resulting tree is emitted to nine targets: HTML/CSS, HTML with CSS classes, React JSX, React + Tailwind, Vue, Svelte, SwiftUI, Flutter, and Jetpack Compose. Tokens and canvas state persist to localStorage, so no backend holds user credentials or design data.",
+    challenges: [
+      "Mapping Figma `auto layout`, constraints, and absolute positioning onto layout primitives that differ per target\u2014flexbox, SwiftUI stacks, Flutter widgets, Compose modifiers.",
+      "Keeping the `node graph` interactive as the Figma document tree grows to hundreds of nested frames.",
+      "Emitting readable output instead of a wall of absolutely positioned divs, including deduplicated `CSS classes` and sane element naming.",
+      "Handling `Figma REST API` tokens client-side without a backend, while keeping rate limits and partial fetches recoverable.",
+    ],
+    solutions: [
+      "Built one intermediate representation per node and one emitter per target, so adding a `codegen` target is a pure function over that IR instead of a fork of the traversal.",
+      "Rendered the tree through `@xyflow/react` with viewport-only rendering and memoized node components, keeping pan and zoom smooth on deep documents.",
+      "Collapsed repeated style sets into shared classes and carried Figma layer names through as element and component names in the generated code.",
+      "Kept tokens and canvas state in `localStorage` only, fetching per node id so a partial import can be retried without refetching the whole file.",
+    ],
+  },
   //code
   {
     type: "project",

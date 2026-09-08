@@ -6,9 +6,9 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft02FreeIcons } from "@hugeicons/core-free-icons"
 import { GooeyButton } from "../ui/gooey-button"
 
-type ProjectIntroProps = Pick<PortfolioProject, "title" | "description">
+type ProjectIntroProps = Pick<PortfolioProject, "title" | "description" | "link">
 
-export const ProjectIntro = ({ title, description }: ProjectIntroProps) => {
+export const ProjectIntro = ({ title, description, link }: ProjectIntroProps) => {
   const router = useRouter()
   return (
     <section
@@ -33,7 +33,18 @@ export const ProjectIntro = ({ title, description }: ProjectIntroProps) => {
             id="project-title"
             className="font-serif type-heading-1 tracking-normal"
           >
-            {title}
+            {link ? (
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-dotted decoration-1 underline-offset-8"
+              >
+                {title}
+              </a>
+            ) : (
+              title
+            )}
           </h1>
           <p className="max-w-[520px] type-label text-pretty text-muted-foreground">
             {description}
