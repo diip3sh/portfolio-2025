@@ -1,4 +1,8 @@
+"use client"
+
 import Image from "next/image"
+
+import { hoverPlayHandlers } from "@/lib/hover-play"
 
 import type { ProjectGalleryImage } from "@/constants/types"
 
@@ -35,11 +39,14 @@ const GalleryImage = ({
     return (
       <div className="overflow-hidden rounded-project">
         <video
-          controls
+          muted
+          loop
           playsInline
+          tabIndex={0}
           preload="metadata"
           poster={image.poster}
           aria-label={image.alt}
+          {...hoverPlayHandlers}
           className="h-auto w-full object-contain"
         >
           <source src={image.src} />
@@ -57,19 +64,54 @@ const GalleryImage = ({
   )
 }
 
+// Consecutive media with the same `row` value share a row; everything else gets
+// a row of its own. Inside a row, consecutive media with the same `cell` value
+// stack in one column.
+const groupBy = (
+  images: ProjectGalleryImage[],
+  key: "row" | "cell"
+): ProjectGalleryImage[][] =>
+  images.reduce<ProjectGalleryImage[][]>((groups, image) => {
+    const lastGroup = groups.at(-1)
+
+    if (image[key] !== undefined && lastGroup?.at(-1)?.[key] === image[key]) {
+      lastGroup.push(image)
+      return groups
+    }
+
+    groups.push([image])
+    return groups
+  }, [])
+
 export const ProjectImageGallery = ({ images }: ProjectImageGalleryProps) => {
+  const rows = groupBy(images, "row")
+
   return (
     <div
       id="gallery"
       aria-label="Project gallery"
       className="relative flex w-full flex-col gap-framer-2"
     >
-      {images.map((image, index) => (
-        <GalleryImage
-          key={`${image.alt}-${index}`}
-          image={image}
-          isPriority={index === 0}
-        />
+      {rows.map((row, rowIndex) => (
+        <div
+          key={`row-${rowIndex}`}
+          className="flex w-full flex-col items-start gap-framer-2 md:flex-row"
+        >
+          {groupBy(row, "cell").map((cell, cellIndex) => (
+            <div
+              key={`cell-${cellIndex}`}
+              className="flex min-w-0 flex-1 flex-col gap-framer-2"
+            >
+              {cell.map((image, index) => (
+                <GalleryImage
+                  key={`${image.alt}-${index}`}
+                  image={image}
+                  isPriority={rowIndex === 0}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
       ))}
     </div>
   )
