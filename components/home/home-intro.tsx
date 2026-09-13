@@ -49,24 +49,20 @@ export const HomeIntroSection = ({ intro }: HomeIntroSectionProps) => {
           India.
         </span>{" "}
         Currently working as{" "}
-        <span className="text-foreground">founding front-end engineer</span> at{" "}
+        <span className="text-foreground">Design Engineer</span> at{" "}
         <Link
-          href={"https://www.linkedin.com/company/portdex/"}
+          href={"https://www.originkit.dev/"}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 align-middle decoration-muted-foreground decoration-dotted underline-offset-4"
         >
           <CompanySVG size={16} />
-          <span className="bg-linear-90 from-[#5C0A9A] from-0% via-[#3A076E] via-55% to-[#171033] to-100% bg-clip-text font-medium text-transparent dark:from-[#E4C1FF] dark:via-[#C77DFF] dark:via-55% dark:to-[#9B5DE5]">
-            Portdex
-          </span>
+          <span className="font-medium text-[#FA7319]">Originkit</span>
         </Link>
-        . Open to <span className="text-foreground">full-time</span> opportunities
-        and{" "}
-        <span className="text-foreground">
-          freelance&nbsp;projects
-        </span>
-        . This website serves as a collection of my previous work across{" "}
+        . Open to <span className="text-foreground">full-time</span>{" "}
+        opportunities and{" "}
+        <span className="text-foreground">freelance&nbsp;projects</span>. This
+        website serves as a collection of my previous work across{" "}
         <span className="inline-flex items-center gap-1.5 align-middle text-foreground">
           product design
           <ProductDesignSVG size={16} />,

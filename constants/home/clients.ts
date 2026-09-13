@@ -16,6 +16,13 @@ export const homeClients: ClientLogo[] = [
     iconSrcLight: "/home-icons/portdex-light.svg",
   },
   {
+    name: "Originkit",
+    alt: "Originkit logo",
+    iconSrc: "/home-icons/originkit-light.svg",
+    iconSrcDark: "/home-icons/originkit-dark.svg",
+    iconSrcLight: "/home-icons/originkit-light.svg",
+  },
+  {
     name: "Upwork",
     alt: "Upwork logo",
     iconSrc: "/home-icons/upwork-light.svg",
