@@ -41,7 +41,7 @@ describe("HomeIntroSection contact actions", () => {
   it("isolates the external company link", () => {
     render(<HomeIntroSection intro={mockIntro} />)
 
-    const companyLink = screen.getByRole("link", { name: /portdex/i })
+    const companyLink = screen.getByRole("link", { name: /originkit/i })
 
     expect(companyLink).toHaveAttribute("target", "_blank")
     expect(companyLink).toHaveAttribute("rel", "noopener noreferrer")

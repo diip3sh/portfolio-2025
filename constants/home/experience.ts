@@ -2,9 +2,16 @@ import type { Experience } from "@/constants/types"
 
 export const homeExperience: Experience[] = [
   {
+    position: "Design Engineer",
+    company: "Originkit",
+    dates: "Jul 2026 — Present",
+    description:
+      "Designing and building tools around Originkit's animated component library, including Thrine, which turns 3D models into embeddable animated web components, and Canvas, a free Figma-to-code converter for React, Tailwind, Vue, SwiftUI, and more.",
+  },
+  {
     position: "Frontend Engineer",
     company: "Portdex",
-    dates: "Mar 2025 — Present",
+    dates: "Mar 2025 — Jun 2026",
     description:
       "Founding frontend engineer building a multi-tenant fintech platform, blockchain-backed financial operations, AI agent workflows, and enterprise APIs with Next.js, TypeScript, and PostgreSQL.",
   },
